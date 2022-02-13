@@ -25,4 +25,20 @@
   &:hover {
     background-color: $primary-light;
   }
+  &.small{
+    height: 28px;
+    font-size: 14px;
+  }
+}
+
+.secondary-btn{
+  background-color: $white;
+  border: 1px solid $gray-one;
+  height: 36px;
+  padding: 0 20px;
+  color: $dark-one;
+  border-radius: $radius-two;
+  &:hover {
+    background-color: $gray-one;
+  }
 }

@@ -8,19 +8,12 @@
         since the 1500s, when an
       </h6>
     </div>
-    <div class="search-area__input">
-      <input v-model="search" type="text" placeholder="Search Products" />
-      <search-icon :size="30" class="search-area__input__icon" />
-    </div>
+    <slot></slot>
   </section>
 </template>
 <script>
-import SearchIcon from "@/components/icons/SearchIcon.vue";
 export default {
   name: "SearchArea",
-  components: {
-    SearchIcon,
-  },
 };
 </script>
 <style lang="scss" scoped>
@@ -40,28 +33,6 @@ export default {
       @include golden-text(20);
       color: $dark-two;
       font-weight: 400;
-    }
-  }
-  &__input {
-    width: 100%;
-    max-width: 500px;
-    height: 60px;
-    position: relative;
-    input {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: transparent;
-      padding-left: 10px;
-      border-radius: 20px;
-      background-color: $white;
-      border: 1px solid $gray-one;
-    }
-    &__icon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 10px;
     }
   }
 }

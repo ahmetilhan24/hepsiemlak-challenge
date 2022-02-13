@@ -2,12 +2,14 @@
   <header class="header flex--row row--middle--center">
     <div class="header__in flex--row row--middle--center">
       <div class="header__in__left flex--row row--middle--center">
-        <picture>
+        <router-link :to="{name: 'Products'}">
+          <picture>
           <img
             src="https://www.hepsiemlak.com/_nuxt/img/logo-multi.9153507.svg"
             alt=""
           />
         </picture>
+        </router-link>
       </div>
       <div class="header__in__right flex--row row--middle--right">
         <router-link :to="{ name: 'Cart' }">
