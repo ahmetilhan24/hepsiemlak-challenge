@@ -41,6 +41,8 @@ export default {
     margin-right: 20px;
     @media only screen and (max-width: $small) {
       width: 100%;
+      margin-bottom: 20px;
+      margin-right: 0;
     }
   }
   &__info {

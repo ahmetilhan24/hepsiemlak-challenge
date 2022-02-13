@@ -21,47 +21,67 @@
       <div class="cart-info__detail__total flex--row row--middle--center">
         <p>Total count</p>
         <span>
-        {{
-          getCartTotal
-        }}
+          {{ getCartTotal + " " + "TRY"}}
         </span>
       </div>
     </div>
     <div class="cart-info__buttons flex--row row--middle--center">
-      <router-link :to="{name: 'Products'}" class="secondary-btn flex--row row--middle--center">
+      <router-link
+        :to="{ name: 'Products' }"
+        class="secondary-btn flex--row row--middle--center"
+      >
         Continue Shopping
       </router-link>
-      <button class="primary-btn" @click="order">Place Order</button>
+      <button
+        :disabled="getCart?.length === 0"
+        class="primary-btn"
+        @click="order"
+      >
+        Place Order
+      </button>
     </div>
+    <preloader :loader="loader" />
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Preloader from "./Preloader.vue";
 export default {
+  components: { Preloader },
   name: "CartInfo",
-  data(){
-    return{
-      cartTotal: 0
-    }
+  data() {
+    return {
+      cartTotal: 0,
+      loader: false,
+    };
   },
   computed: {
     ...mapGetters({
       getCart: "getCart",
-      getCartTotal: "getCartTotal"
+      getCartTotal: "getCartTotal",
     }),
   },
   methods: {
     ...mapActions({
-      placeOrder: "placeOrder"
+      placeOrder: "placeOrder",
     }),
-    order(){
-      this.placeOrder().then(res => {
-        alert(res.data.message)
-      }).catch(err => {
-        alert({err}.err.response.data.message)
-      })
-    }
-  }
+    order() {
+      this.loader = true;
+      this.placeOrder()
+        .then((res) => {
+          this.loader = false;
+          this.cartTotal = 0;
+          alert(res.data.message);
+          this.$router.push({
+            name: "Products"
+          })
+        })
+        .catch((err) => {
+          this.loader = false;
+          alert({ err }.err.response.data.message);
+        });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

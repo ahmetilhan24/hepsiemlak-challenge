@@ -3,15 +3,15 @@ import orderService from "@/services/order.service";
 
 const state = {
   cart: [],
-  cartTotal: 0
+  cartTotal: 0,
 };
 const getters = {
   getCart(state) {
     return state.cart;
   },
-  getCartTotal(state){
-    return state.cartTotal
-  }
+  getCartTotal(state) {
+    return state.cartTotal;
+  },
 };
 const mutations = {
   setCart(state, products) {
@@ -25,7 +25,7 @@ const mutations = {
     });
     //update cart localstorage
     cartService.setProducts(state.cart);
-    this.commit("setCartTotal")
+    this.commit("setCartTotal");
   },
   async removeProduct(state, productId) {
     //find product index with es6 basic
@@ -34,33 +34,37 @@ const mutations = {
     await state.cart.splice(itemIndex, 1);
     //update cart localstorage
     cartService.setProducts(state.cart);
-    this.commit("setCartTotal")
+    this.commit("setCartTotal");
   },
   //update product for amount
-  async updateProduct(state, data){
-      //find product index with es6 basic
-      let isProduct = await state.cart.find((item) => item.id === data.product.id);
-      isProduct.amount = data.amount
-      //update cart localstorage
-      cartService.setProducts(state.cart);
-      this.commit("setCartTotal")
+  async updateProduct(state, data) {
+    //find product index with es6 basic
+    let isProduct = await state.cart.find(
+      (item) => item.id === data.product.id
+    );
+    isProduct.amount = data.amount;
+    //update cart localstorage
+    cartService.setProducts(state.cart);
+    this.commit("setCartTotal");
   },
-  setCartTotal(state){
+  setCartTotal(state) {
     //clear totalCart
     state.cartTotal = 0;
     //sum price * amount
-    state.cart?.forEach(item => {
-        state.cartTotal += Number(item.price * item.amount);
+    state.cart?.forEach((item) => {
+      state.cartTotal += Number(item.price * item.amount);
     });
-  }
+  },
 };
 const actions = {
-  placeOrder({state, commit}){
-   return orderService.placeOrder(state.cart).then(res => {
-      commit("setCart", [])
-      return res
-    })
-  }
+  placeOrder({ state, commit }) {
+    return orderService.placeOrder(state.cart).then((res) => {
+      //clear cart
+      commit("setCart", []);
+      cartService.clearProducts();
+      return res;
+    });
+  },
 };
 
 export default {
