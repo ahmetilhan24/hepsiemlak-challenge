@@ -1,0 +1,28 @@
+.cart-count-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: $white;
+  font-size: 10px;
+  font-weight: bold;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  color: $primary;
+  line-height: 0;
+}
+
+.primary-btn {
+  display: block;
+  height: 36px;
+  border: none;
+  background-color: $primary;
+  color: $white;
+  cursor: pointer;
+  padding: 0 20px;
+  border-radius: $radius-two;
+  transition: 0.3s;
+  &:hover {
+    background-color: $primary-light;
+  }
+}

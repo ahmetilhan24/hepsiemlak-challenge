@@ -1,0 +1,33 @@
+//colors
+$primary: #FB6331;
+$primary-light: #ff8258;
+$dark-one:  #272C48;
+$dark-two: #8A8BA1;
+$gray-one: #e0dfec;
+$gray-two: #ececf5;
+$red: #ff4646;
+$green: #41db62;
+$white: #fff;
+$black: #000;
+//widths
+$max-width-one: 1200px;
+//radius
+$radius-one: 8px;
+$radius-two: 5px;
+$radius-three: 2px;
+//media queries
+//Device sizes
+$other-devices: 400px;
+$extra-small: 576px;
+$small: 768px;
+$medium: 992px;
+$large: 1200px;
+$extra-large: 1400px;
+$big: 1600px;
+//mixins
+//font size mixin px to rem root size 16px
+$golden-raito: 1.618;
+@mixin golden-text($fontSize) {
+  font-size: ($fontSize / 16) + rem;
+  line-height: (($fontSize / 16) * $golden-raito) + rem;
+}
