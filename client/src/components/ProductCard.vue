@@ -59,7 +59,7 @@ export default {
     async cartControl() {
       let cart = await this.getCart;
       //find product in localstorage
-      let isProduct = await cart.some((item) => item.id === this.product.id);
+      let isProduct = await cart?.some((item) => item.id === this.product.id);
       //is item
       this.isCarted = isProduct;
     },

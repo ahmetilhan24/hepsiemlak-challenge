@@ -11,11 +11,15 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setCart: "setCart"
+      setCart: "setCart",
+      setCartTotal: "setCartTotal"
     })
   },
   created(){
-    this.setCart(JSON.parse(localStorage.getItem("cart")))
+    //get cart items where localstorag
+    this.setCart(JSON.parse(localStorage.getItem("cart")) || [])
+    //get cart total where localstorage
+    this.setCartTotal()
   }
 };
 </script>

@@ -17,7 +17,7 @@
           :to="{ name: 'Cart' }"
         >
           <span class="cart-count-circle flex--column column--middle--center">
-            {{ getCart().length }}
+            {{ getCart()?.length  || 0}}
           </span>
           Basket
         </router-link>

@@ -5,9 +5,9 @@
         <img :src="product.image" alt="" />
       </picture>
       <div class="cart-item__left__amount">
-        <button>+</button>
-        <input type="number" />
-        <button>-</button>
+        <button @click="increase">+</button>
+        <input @keyup="amountChange" type="number" :value="product.amount" />
+        <button @click="decrease">-</button>
       </div>
     </div>
     <div class="cart-item__right flex--column column--middle--right">
@@ -17,18 +17,18 @@
         </h3>
         <span>
           <b>
-            {{
-              product.price + " " + product.currency
-            }}
+            {{ product.price + " " + product.currency }}
           </b>
         </span>
       </div>
-      <button class="primary-btn small" @click="removeProduct(product.id)">Remove</button>
+      <button class="primary-btn small" @click="removeProduct(product.id)">
+        Remove
+      </button>
     </div>
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations } from "vuex";
 export default {
   name: "CartItem",
   props: {
@@ -37,11 +37,42 @@ export default {
       default: () => {},
     },
   },
+  data() {
+    return {
+      amount: this.product.amount,
+    };
+  },
   methods: {
     ...mapMutations({
-      removeProduct: "removeProduct"
-    })
-  }
+      removeProduct: "removeProduct",
+      updateProduct: "updateProduct",
+    }),
+    //product amount increase decrease
+    async increase() {
+      this.amount += 1;
+      this.updateProduct({
+        product: this.product,
+        amount: this.amount,
+      });
+    },
+    async decrease() {
+      if (this.amount > 1) {
+        this.amount -= 1;
+        this.updateProduct({
+          product: this.product,
+          amount: this.amount,
+        });
+      }
+    },
+    //AMOUNT CHANGE FOR INPUT
+     amountChange(e){
+      this.amount = Number(e.target.value);
+      this.updateProduct({
+        product: this.product,
+        amount: this.amount,
+      })
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -67,6 +98,11 @@ export default {
         border-radius: 3px;
         border: 1px solid $dark-two;
         margin: 0 5px;
+        line-height: 100%;
+        text-align: center;
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
       }
       button {
         width: 24px;
