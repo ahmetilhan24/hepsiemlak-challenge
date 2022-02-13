@@ -14,11 +14,16 @@ const mutations = {
   },
   async pushProduct(state, product){
     await state.cart.push(product);
+     //update cart localstorage
     cartService.setProducts(state.cart);
   },
   async removeProduct(state, productId){
+    //find product index with es6 basic
     let itemIndex = await state.cart.findIndex(item => item.id === productId)
-    state.cart.splice(itemIndex, 1);
+    //removed array
+    await state.cart.splice(itemIndex, 1);
+    //update cart localstorage
+    cartService.setProducts(state.cart);
   }
 };
 const actions = {};

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "ProductCard",
   props: {
@@ -37,6 +37,11 @@ export default {
     return {
       isCarted: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      getCart: "getCart"
+    })
   },
   methods: {
     ...mapMutations({
@@ -52,8 +57,19 @@ export default {
         this.pushProduct(this.product);
         this.isCarted = true
       }
+      
     },
+   async cartControl(){
+      let cart = await this.getCart;
+      //find product in localstorage
+      let isProduct = await cart.some(item => item.id === this.product.id)
+      //is item
+      this.isCarted = isProduct;
+    }
   },
+  created(){
+    this.cartControl()
+  }
 };
 </script>
 <style lang="scss" scoped>
