@@ -2,10 +2,7 @@
   <div class="cart-item flex--row row--top--left">
     <div class="cart-item__left flex--column column--middle--center">
       <picture>
-        <img
-          src="https://cdn.glitch.com/a28552e7-44e1-4bbd-b298-5745e70c2209%2Fdis-fircasi.jpeg?v=1561027551798"
-          alt=""
-        />
+        <img :src="product.image" alt="" />
       </picture>
       <div class="cart-item__left__amount">
         <button>+</button>
@@ -14,23 +11,37 @@
       </div>
     </div>
     <div class="cart-item__right flex--column column--middle--right">
-      <div
-        class="cart-item__right__info flex--column column--middle--left"
-      >
-      <h3>Lorem ipsum dolar sit ament</h3>
-      <span>
-        <b>
-          398 TRY
-        </b>
-      </span>
+      <div class="cart-item__right__info flex--column column--middle--left">
+        <h3>
+          {{ product.name }}
+        </h3>
+        <span>
+          <b>
+            {{
+              product.price + " " + product.currency
+            }}
+          </b>
+        </span>
       </div>
-      <button class="primary-btn small">Remove</button>
+      <button class="primary-btn small" @click="removeProduct(product.id)">Remove</button>
     </div>
   </div>
 </template>
 <script>
+import { mapMutations } from 'vuex';
 export default {
   name: "CartItem",
+  props: {
+    product: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  methods: {
+    ...mapMutations({
+      removeProduct: "removeProduct"
+    })
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -66,12 +77,15 @@ export default {
       }
     }
   }
-  &__right{
+  &__right {
     justify-content: space-between;
     min-height: 100px;
-    &__info{
-      h3{
-        color: $dark-two;margin-bottom: 10px;
+    width: 100%;
+    &__info {
+      width: 100%;
+      h3 {
+        color: $dark-two;
+        margin-bottom: 10px;
       }
     }
   }

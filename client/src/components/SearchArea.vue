@@ -20,6 +20,7 @@ export default {
 .search-area {
   width: 100%;
   min-height: 480px;
+  padding: 0 10px;
   text-align: center;
   background: linear-gradient(#ff825815, transparent);
   &__content {

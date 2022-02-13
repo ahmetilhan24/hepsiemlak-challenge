@@ -15,10 +15,8 @@
         {{ product.price + product.currency }}
       </span>
       <button class="primary-btn small" @click="cartUpdate">
-        {{
-          isCarted ? "Remove basket" : "Add basket"
-        }}
-        </button>
+        {{ isCarted ? "Remove" : "Add basket" }}
+      </button>
     </div>
   </article>
 </template>
@@ -40,8 +38,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getCart: "getCart"
-    })
+      getCart: "getCart",
+    }),
   },
   methods: {
     ...mapMutations({
@@ -55,26 +53,28 @@ export default {
         this.isCarted = false;
       } else {
         this.pushProduct(this.product);
-        this.isCarted = true
+        this.isCarted = true;
       }
-      
     },
-   async cartControl(){
+    async cartControl() {
       let cart = await this.getCart;
       //find product in localstorage
-      let isProduct = await cart.some(item => item.id === this.product.id)
+      let isProduct = await cart.some((item) => item.id === this.product.id);
       //is item
       this.isCarted = isProduct;
-    }
+    },
   },
-  created(){
-    this.cartControl()
-  }
+  created() {
+    this.cartControl();
+  },
 };
 </script>
 <style lang="scss" scoped>
 .product-card {
   width: calc(33.33% - 12px);
+  @media only screen and (max-width: $extra-small) {
+    width: calc(50% - 12px);
+  }
   margin: 6px;
   border: 1px solid $gray-one;
   padding: 10px 15px;
@@ -101,9 +101,16 @@ export default {
     margin-top: 20px;
     width: 100%;
     justify-content: space-between;
+    @media only screen and (max-width: $extra-small) {
+      flex-direction: column;
+    }
     &__price {
       color: $dark-two;
       font-size: 20px;
+      @media only screen and (max-width: $extra-small) {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
     }
   }
 }

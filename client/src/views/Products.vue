@@ -70,6 +70,8 @@ export default {
   width: 100%;
   &__items {
     max-width: $max-width-one;
+    
+  padding: 0 4px;
     width: 100%;
     flex-wrap: wrap;
   }
