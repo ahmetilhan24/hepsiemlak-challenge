@@ -12,20 +12,27 @@
         </router-link>
       </div>
       <div class="header__in__right flex--row row--middle--right">
-        <router-link :to="{ name: 'Cart' }">
-          <button class="primary-btn">
+        <router-link class="primary-btn flex--row row--middle--center" :to="{ name: 'Cart' }">
             <span class="cart-count-circle flex--column column--middle--center">
+              {{
+                getCart().length
+              }}
             </span>
-            Basket
-          </button>
+            Basket 
         </router-link>
       </div>
     </div>
   </header>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "AppHeader",
+  methods: {
+    ...mapGetters({
+      getCart: "getCart"
+    })
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -42,6 +49,11 @@ export default {
         img {
           height: 50px;
         }
+      }
+    }
+    &__right{
+      a{
+        position: relative;
       }
     }
   }
