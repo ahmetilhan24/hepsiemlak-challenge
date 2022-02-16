@@ -31,7 +31,7 @@ export default {
   max-width: $max-width-one;
   margin-top: 60px;
   justify-content: space-between;
-
+  min-height: calc(100vh - 150px);
   padding: 0 10px;
   @media only screen and (max-width: $small) {
     flex-wrap: wrap;

@@ -68,6 +68,7 @@ export default {
 <style lang="scss" scoped>
 .products {
   width: 100%;
+  min-height: calc(100vh - 150px);
   &__items {
     max-width: $max-width-one;
     
